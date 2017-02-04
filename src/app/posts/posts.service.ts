@@ -10,7 +10,7 @@ import { Post } from './post';
 @Injectable()
 export class PostsService {
 
-  private _wpBase = "http://{YOUR_SITE_HERE}.com/wp-json/wp/v2/";
+  private _wpBase = "http://paintball.dev/wp-json/wp/v2/";
 
   constructor(private http: Http) { }
 
@@ -25,9 +25,16 @@ export class PostsService {
   getPost(slug): Observable<Post> {
 
       return this.http
-        .get(this._wpBase + `posts?filter[name]=${slug}`)
+        .get(this._wpBase + `posts?slug=${slug}`)
         .map((res: Response) => res.json());
 
   }
+
+    getPostsNumber(number): Observable<Post[]> {
+
+        return this.http
+            .get(this._wpBase + `posts?per_page=${number}`)
+            .map((res: Response) => res.json());
+    }
 
 }

@@ -7,18 +7,22 @@ import { AppComponent } from './app.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { Wpng2RoutingModule } from './app-routing.module';
 import { PostSingleComponent } from './posts/post-single/post-single.component';
+import { HeaderComponent } from './components/header/header.component';
+import { CarouselModule } from 'ng2-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostListComponent,
-    PostSingleComponent
+    PostSingleComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    Wpng2RoutingModule
+    Wpng2RoutingModule,
+    CarouselModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
