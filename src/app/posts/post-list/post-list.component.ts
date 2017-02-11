@@ -11,15 +11,16 @@ import {Router} from '@angular/router';
 })
 export class PostListComponent implements OnInit {
 
-    mostViewedPosts: Post[];
+    posts: Post[];
     latestPosts: Post[];
+    categories: Array<any>;
     public myInterval: number = 5000;
     public noWrapSlides: boolean = false;
     public activeSlideIndex: number;
     public noPause: boolean;
 
     constructor(private postsService: PostsService, private router: Router) {
-        this.mostViewedPosts = [{thumbnail: '', title: {rendered: ''}}];
+        this.posts = [{thumbnail: '', title: {rendered: ''}}];
         this.latestPosts = [{thumbnail: '', title: {rendered: ''}}];
     }
 
@@ -27,11 +28,12 @@ export class PostListComponent implements OnInit {
         this.postsService
             .getPosts()
             .subscribe(res => {
-                this.mostViewedPosts = res;
+                this.posts = res;
+                this.getPostsByCategories();
             });
     }
 
-    getPostsNumber(number){
+    getPostsNumber(number) {
         this.postsService
             .getPostsNumber(number)
             .subscribe(res => {
@@ -40,12 +42,36 @@ export class PostListComponent implements OnInit {
             })
     }
 
+    getAllCategories() {
+        this.postsService
+            .getAllCategories()
+            .subscribe(res => {
+                this.categories = res;
+            })
+    }
+
+    getPostsByCategories(){
+        this.posts.forEach(function (item, index, array) {
+            console.log(item['categories']);
+            if(item['categories']){
+                item['categories'].forEach(function (cat) {
+                    console.log(cat);
+                });
+            }
+
+            // if(item.slug === 'uncategorized'){
+            //     array.splice(item, 1);
+            // }
+        });
+    }
+
     ngOnInit() {
         this.getPosts();
         this.getPostsNumber(4);
+        this.getAllCategories();
     }
 
-    ngAfterViewInit(){
+    ngAfterViewInit() {
         this.noPause = true;
     }
 

@@ -1,10 +1,10 @@
-import { Wpng2TestPage } from './app.po';
+import { Wpng2Page } from './app.po';
 
-describe('wpng2-test App', function() {
-  let page: Wpng2TestPage;
+describe('wpng2 App', function() {
+  let page: Wpng2Page;
 
   beforeEach(() => {
-    page = new Wpng2TestPage();
+    page = new Wpng2Page();
   });
 
   it('should display message saying app works', () => {

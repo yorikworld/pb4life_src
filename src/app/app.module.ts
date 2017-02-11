@@ -9,6 +9,7 @@ import { Wpng2RoutingModule } from './app-routing.module';
 import { PostSingleComponent } from './posts/post-single/post-single.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CarouselModule } from 'ng2-bootstrap';
+import { AppConfig } from "./config";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { CarouselModule } from 'ng2-bootstrap';
     Wpng2RoutingModule,
     CarouselModule.forRoot()
   ],
-  providers: [],
+  providers: [AppConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

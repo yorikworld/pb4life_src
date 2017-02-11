@@ -2,5 +2,15 @@ carousel .item img{
     width: 100%;
 }
 .single{
+    height: 426px;
     cursor: pointer;
+}
+carousel .carousel-control.right{
+    top: 38px !important;
+}
+@media only screen and (min-width : 992px) and (max-width : 1200px){
+    .single{
+        height: 349px;
+        cursor: pointer;
+    }
 }
