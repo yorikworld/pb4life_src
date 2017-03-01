@@ -8,6 +8,10 @@ carousel .item img{
 carousel .carousel-control.right{
     top: 38px !important;
 }
+.business_category_right{float:right; display:inline; width:49%; padding-top:0px}
+.tab-content {
+    padding-top: 20px!important;
+}
 @media only screen and (min-width : 992px) and (max-width : 1200px){
     .single{
         height: 349px;

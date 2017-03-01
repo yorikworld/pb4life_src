@@ -47,4 +47,19 @@ export class PostsService {
             .map((res: Response) => res.json());
     }
 
+    getPostsByCategory(postsCount: number, categoryId: number){
+        return this.http
+            .get(this._wpBase + `posts?categories=${categoryId}&per_page=${postsCount}`)
+            .map((res: Response) => res.json());
+    }
+
+    getAuthor(id): Observable<Post> {
+
+        // console.log(id);
+
+        return this.http
+            .get(this._wpBase + 'users/'+id)
+            .map((res: Response) => res.json());
+    }
+
 }

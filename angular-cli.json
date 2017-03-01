@@ -24,14 +24,16 @@
         "assets/css/slick.css",
         "assets/css/theme.css",
         "assets/css/style.css",
-        "styles.css"
+        "styles.css",
+        "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css"
       ],
       "scripts": [
         "assets/js/jquery.min.js",
         "assets/js/bootstrap.min.js",
         "assets/js/wow.min.js",
         "assets/js/custom.js",
-        "assets/js/slick.min.js"
+        "assets/js/slick.min.js",
+        "app/shared/vkComments.module.js"
       ],
       "environments": {
         "source": "environments/environment.ts",

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule, ViewContainerRef} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
@@ -9,23 +9,35 @@ import { Wpng2RoutingModule } from './app-routing.module';
 import { PostSingleComponent } from './posts/post-single/post-single.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CarouselModule } from 'ng2-bootstrap';
-import { AppConfig } from "./config";
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import { ContactComponent } from './pages/contact/contact.component';
+import { PageComponent } from './pages/page/page.component';
+import { Page404Component } from './pages/page404/page404.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { VkComponent } from './shared/vk.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostListComponent,
     PostSingleComponent,
-    HeaderComponent
+    HeaderComponent,
+    ContactComponent,
+    PageComponent,
+    Page404Component,
+    FooterComponent,
+    FooterComponent,
+    VkComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     Wpng2RoutingModule,
+    ToastModule,
     CarouselModule.forRoot()
   ],
-  providers: [AppConfig],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
