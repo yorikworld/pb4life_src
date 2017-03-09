@@ -32,8 +32,7 @@
         "assets/js/bootstrap.min.js",
         "assets/js/wow.min.js",
         "assets/js/custom.js",
-        "assets/js/slick.min.js",
-        "app/shared/vkComments.module.js"
+        "assets/js/slick.min.js"
       ],
       "environments": {
         "source": "environments/environment.ts",

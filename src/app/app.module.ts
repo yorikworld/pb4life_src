@@ -14,7 +14,8 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { PageComponent } from './pages/page/page.component';
 import { Page404Component } from './pages/page404/page404.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { VkComponent } from './shared/vk.component';
+import { VkComponent } from './shared/vk.comments.component';
+import { SocialShareComponent } from './shared/social-share.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { VkComponent } from './shared/vk.component';
     Page404Component,
     FooterComponent,
     FooterComponent,
-    VkComponent
+    VkComponent,
+    SocialShareComponent
   ],
   imports: [
     BrowserModule,

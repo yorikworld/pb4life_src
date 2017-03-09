@@ -12,7 +12,7 @@ export class VkComponent implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit() {
-    var s = document.createElement("script");
+    let s = document.createElement("script");
     s.type = "text/javascript";
     s.innerText = "VK.Widgets.Comments('vk_comments', {limit: 10, width: '', attach: '*'}, location.href);";
     this.elementRef.nativeElement.appendChild(s);
