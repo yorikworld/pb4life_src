@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  host: document.location.protocol + '//' + document.location.hostname + '/wp-json/wp/v2/'
+  host: document.location.protocol + '//' + document.location.hostname + '/',
+  api: document.location.protocol + '//' + document.location.hostname + '/wp-json/wp/v2/'
 };

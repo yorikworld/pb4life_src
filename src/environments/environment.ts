@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  host: 'http://paintball.dev/wp-json/wp/v2/'
+  host: 'http://paintball.dev/',
+  api: 'http://paintball.dev/wp-json/wp/v2/'
 };

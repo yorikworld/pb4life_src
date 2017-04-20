@@ -2,11 +2,12 @@
 <!--<h1>{{ post.title.rendered }}</h1>-->
 <!--<div [innerHTML]="post.content.rendered"></div>-->
 <!--</div>-->
+<div class="ya-share2" data-services="vkontakte,twitter,facebook,gplus" data-counter></div>
 <div class="container">
-    <section id="mainContent" *ngIf="post">
+    <section id="mainContent">
         <div class="content_bottom">
             <div class="col-lg-8 col-md-8">
-                <div class="content_bottom_left">
+                <div class="content_bottom_left" *ngIf="post">
                     <div class="single_page_area">
                         <ol class="breadcrumb">
                             <li><a href="#">Home</a></li>
@@ -17,7 +18,7 @@
                         <h2 class="post_titile">{{ post.title.rendered }}</h2>
                         <div class="single_page_content">
                             <div class="post_commentbox"><a href="#"><i class="fa fa-user"></i>{{author}}</a> <span><i
-                                    class="fa fa-calendar"></i>{{date_gmt}}</span> <a href="#"><i
+                                    class="fa fa-clock-o"></i>{{date_gmt}}</span> <a href="#"><i
                                     class="fa fa-tags"></i>Technology</a>
                             </div>
                             <img class="img-center" [src]="post.thumbnail" alt="{{post.name}}">
@@ -39,6 +40,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!--<div class="post_pagination">-->
                 <!--<div class="prev"><a class="angle_left" href="#"><i class="fa fa-angle-double-left"></i></a>-->
                 <!--<div class="pagincontent"><span>Previous Post</span> <a href="#">Aliquam quam orci in molestie a-->
@@ -50,24 +52,25 @@
                 <!--<a class="angle_right" href="#"><i class="fa fa-angle-double-right"></i></a></div>-->
                 <!--</div>-->
 
-                <div class="share_post">
-                    <a (click)="share.facebook(location.href, post.title.rendered, post.thumbnail, '')"
-                       class="facebook"><i class="fa fa-facebook"></i>Facebook</a>
-                    <a (click)="share.twitter(location.href, post.title.rendered)" class="twitter"><i
-                            class="fa fa-twitter"></i>Twitter</a>
-                    <a (click)="share.gplus()" class="googleplus"><i class="fa fa-google-plus"></i>Google+</a>
-                    <a (click)="share.linkedin()" class="linkedin"><i class="fa fa-linkedin"></i>LinkedIn</a>
-                    <!--<a class="stumbleupon" href="#"><i class="fa fa-stumbleupon"></i>StumbleUpon</a>-->
-                    <a (click)="share.pinterest()" class="pinterest"><i class="fa fa-pinterest"></i>Pinterest</a>
-                </div>
+
+                <!--<div id="share"></div>-->
+
+                <!--<div class="share_post">-->
+                    <!--<a (click)="share.facebook(location.href, post.title.rendered, post.thumbnail, '')"-->
+                       <!--class="facebook"><i class="fa fa-facebook"></i>Facebook</a>-->
+                    <!--<a (click)="share.twitter(location.href, post.title.rendered)" class="twitter"><i-->
+                            <!--class="fa fa-twitter"></i>Twitter</a>-->
+                    <!--<a (click)="share.gplus()" class="googleplus"><i class="fa fa-google-plus"></i>Google+</a>-->
+                    <!--<a (click)="share.linkedin()" class="linkedin"><i class="fa fa-linkedin"></i>LinkedIn</a>-->
+                    <!--&lt;!&ndash;<a class="stumbleupon" href="#"><i class="fa fa-stumbleupon"></i>StumbleUpon</a>&ndash;&gt;-->
+                    <!--<a (click)="share.pinterest()" class="pinterest"><i class="fa fa-pinterest"></i>Pinterest</a>-->
+                <!--</div>-->
+
+
 
                 <!-- Put this div tag to the place, where the Comments block will be -->
                 <vkcomments></vkcomments>
-                <!--<script type="text/javascript">-->
-                <!--document.addEventListener("DOMContentLoaded", function(event) {-->
-                <!--VK.Widgets.Comments("vk_comments", {limit: 10, width: "", attach: "*"});-->
-                <!--});-->
-                <!--</script>-->
+
                 <!--<div class="similar_post">-->
                 <!--<h2>Similar Post You May Like <i class="fa fa-thumbs-o-up"></i></h2>-->
                 <!--<ul class="small_catg similar_nav wow fadeInDown animated">-->

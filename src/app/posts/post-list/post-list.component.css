@@ -4,6 +4,7 @@ carousel .item img{
 .single{
     height: 426px;
     cursor: pointer;
+    margin:auto;
 }
 carousel .carousel-control.right{
     top: 38px !important;

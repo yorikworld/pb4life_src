@@ -13,8 +13,8 @@
                     <carousel [ngClass]="{latest_slider: true}" [interval]="myInterval" [noWrap]="noWrapSlides"
                               [noPause]="noPause"
                               [(activeSlide)]="activeSlideIndex">
-                        <slide *ngFor="let post of posts; let index=index">
-                            <img class="single" [routerLink]="post.slug" [src]="post.thumbnail" style="margin:auto;">
+                        <slide *ngFor="let post of popularPosts; let index=index">
+                            <img class="single" [routerLink]="post.slug" [src]="post.thumbnail">
 
                             <div class="carousel-caption">
                                 <h4>Slide {{index}}</h4>
@@ -65,8 +65,8 @@
                                             <div class="comments_box">
                                             <span
                                                     class="meta_date">{{post.date_gmt}}</span> <span
-                                                    class="meta_comment"><a
-                                                    [routerLink]="post.slug">No Comments</a></span>
+                                                    class="meta_comment"><a [ngClass]="'vk_count_'+post.id"
+                                                    [routerLink]="post.slug">Нет коментариев</a></span>
                                                 <span
                                                         class="meta_more">
                                             <a [routerLink]="post.slug">Read More...</a></span></div>
@@ -88,7 +88,7 @@
                                                     <div class="comments_box"><span
                                                             class="meta_date">{{post.date_gmt}}</span>
                                                         <span class="meta_comment">
-                                                        <a [routerLink]="post.slug">No Comments</a></span>
+                                                        <a [ngClass]="'vk_count_'+post.id" [routerLink]="post.slug">Нет коментариев</a></span>
                                                     </div>
                                                 </div>
                                             </div>
