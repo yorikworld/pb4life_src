@@ -2,7 +2,6 @@
 <!--<h1>{{ post.title.rendered }}</h1>-->
 <!--<div [innerHTML]="post.content.rendered"></div>-->
 <!--</div>-->
-<div class="ya-share2" data-services="vkontakte,twitter,facebook,gplus" data-counter></div>
 <div class="container">
     <section id="mainContent">
         <div class="content_bottom">
@@ -14,7 +13,6 @@
                             <li><a href="#">Technology</a></li>
                             <li class="active">Duis quis erat non nunc fringilla</li>
                         </ol>
-                        <!--{{ post | json}}-->
                         <h2 class="post_titile">{{ post.title.rendered }}</h2>
                         <div class="single_page_content">
                             <div class="post_commentbox"><a href="#"><i class="fa fa-user"></i>{{author}}</a> <span><i
@@ -65,11 +63,11 @@
                     <!--&lt;!&ndash;<a class="stumbleupon" href="#"><i class="fa fa-stumbleupon"></i>StumbleUpon</a>&ndash;&gt;-->
                     <!--<a (click)="share.pinterest()" class="pinterest"><i class="fa fa-pinterest"></i>Pinterest</a>-->
                 <!--</div>-->
-
-
-
+                <app-social-share></app-social-share>
                 <!-- Put this div tag to the place, where the Comments block will be -->
                 <vkcomments></vkcomments>
+
+
 
                 <!--<div class="similar_post">-->
                 <!--<h2>Similar Post You May Like <i class="fa fa-thumbs-o-up"></i></h2>-->

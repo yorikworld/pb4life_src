@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 
 import {Post} from './post';
 import {environment} from "../../environments/environment";
+import {map} from "rxjs/operator/map";
 
 @Injectable()
 export class PostsService {
@@ -21,11 +22,20 @@ export class PostsService {
     this._prod = environment.production;
   }
 
+  setDefaultThumbnail(res) {
+    res.forEach(item => {
+      if (!item['thumbnail'])
+        item['thumbnail'] = 'assets/images/NoImage.jpg';
+    });
+    return res;
+  }
+
   getPosts(): Observable<Post[]> {
 
     return this.http
         .get(this._wpBase + 'posts')
-        .map((res: Response) => res.json());
+        .map((res: Response) => res.json())
+        .map((res: Response) => this.setDefaultThumbnail(res));
 
   }
 
@@ -33,7 +43,8 @@ export class PostsService {
 
     return this.http
         .get(this._wpBase + `posts?slug=${slug}`)
-        .map((res: Response) => res.json());
+        .map((res: Response) => res.json())
+        .map((res: Response) => this.setDefaultThumbnail(res));
 
   }
 
@@ -41,7 +52,8 @@ export class PostsService {
 
     return this.http
         .get(this._wpBase + `posts?per_page=${number}`)
-        .map((res: Response) => res.json());
+        .map((res: Response) => res.json())
+        .map((res: Response) => this.setDefaultThumbnail(res));
   }
 
   getAllCategories(): Observable<Post[]> {
@@ -54,7 +66,8 @@ export class PostsService {
   getPostsByCategory(postsCount: number, categoryId: number) {
     return this.http
         .get(this._wpBase + `posts?categories=${categoryId}&per_page=${postsCount}`)
-        .map((res: Response) => res.json());
+        .map((res: Response) => res.json())
+        .map((res: Response) => this.setDefaultThumbnail(res));
   }
 
   getAuthor(id): Observable<Post> {
@@ -68,7 +81,7 @@ export class PostsService {
     //TODO: add nonce check to this request.
     console.log(id);
     return this.http
-        .get(this._host + 'wp-admin/admin-ajax.php?action=post_view_count&id='+id)
+        .get(this._host + 'wp-admin/admin-ajax.php?action=post_view_count&id=' + id)
 
   }
 
@@ -99,6 +112,4 @@ export class PostsService {
           .catch(err => console.log(err));
     }
   }
-
-
 }

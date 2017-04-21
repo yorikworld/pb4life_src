@@ -20,7 +20,7 @@ export class PostSingleComponent implements OnInit, AfterViewInit {
 
   constructor(private postsService: PostsService, private route: ActivatedRoute,
               private location: Location, vkComponent: VkComponent) {
-    // this.vkApi = vkComponent.init();
+    this.vkApi = vkComponent.init();
   }
 
   getPost(slug) {

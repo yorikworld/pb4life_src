@@ -1,37 +1,23 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-    selector: 'app-social-share',
-    templateUrl: './social-share.component.html',
-    styleUrls: ['./social-share.component.css']
+  selector: 'app-social-share',
+  template: '<div class="ya-share2" data-services="vkontakte,twitter,facebook,gplus" data-counter></div>',
+  styles: ['.ya-share2{margin-bottom: 15px;}']
 })
 export class SocialShareComponent implements OnInit {
+//TODO: Проконтролировать одну ссылку для всех соцсетей. В документации написано как конкретно указать страницу. Что бы небыло разницы между http и https.
+  constructor() {
+  }
 
-    constructor() {
+  ngOnInit() {
+    let el = document.getElementById('yashare-script');
+    if (el) {
+      el.remove();
     }
-
-    ngOnInit() {
-    }
-
-    facebook(purl, ptitle, pimg, text) {
-        let url = 'http://www.facebook.com/sharer.php?s=100';
-        url += '&p[title]=' + encodeURIComponent(ptitle);
-        url += '&p[summary]=' + encodeURIComponent(text);
-        url += '&p[url]=' + encodeURIComponent(purl);
-        url += '&p[images][0]=' + encodeURIComponent(pimg);
-        this.popup(url);
-    }
-
-    twitter(purl, ptitle) {
-        let url = 'http://twitter.com/share?';
-        url += 'text=' + encodeURIComponent(ptitle);
-        url += '&url=' + encodeURIComponent(purl);
-        url += '&counturl=' + encodeURIComponent(purl);
-        this.popup(url);
-    }
-
-
-    popup(url) {
-        window.open(url, '', 'toolbar=0,status=0,width=626,height=436');
-    }
+    let script = document.createElement('script');
+    script.id = 'yashare-script';
+    script.src = '//yastatic.net/share2/share.js';
+    document.body.appendChild(script);
+  }
 }
