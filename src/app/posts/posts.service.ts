@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 
 import {Post} from './post';
 import {environment} from "../../environments/environment";
-import {map} from "rxjs/operator/map";
+import {isNullOrUndefined} from "util";
 
 @Injectable()
 export class PostsService {
@@ -15,17 +15,33 @@ export class PostsService {
   private _wpBase: string;
   private _host: string;
   private _prod: boolean;
+  private DEPLOY_PATH: string;
+  private recommendedPosts: Array<{}>;
 
   constructor(private http: Http) {
     this._wpBase = environment.api;
     this._host = environment.host;
     this._prod = environment.production;
+    this.DEPLOY_PATH = environment.DEPLOY_PATH;
+    this.recommendedPosts = [];
+  }
+
+  get recommendedPosts$(){
+    return this.recommendedPosts;
+  }
+
+  pushRecommendedPosts(res){
+    res.forEach(item =>{
+      if(item['acf']['we_recommended'])
+        this.recommendedPosts.push(item);
+    });
+    return res
   }
 
   setDefaultThumbnail(res) {
     res.forEach(item => {
       if (!item['thumbnail'])
-        item['thumbnail'] = 'assets/images/NoImage.jpg';
+        item['thumbnail'] = this.DEPLOY_PATH + 'assets/images/NoImage.jpg';
     });
     return res;
   }
@@ -35,7 +51,8 @@ export class PostsService {
     return this.http
         .get(this._wpBase + 'posts')
         .map((res: Response) => res.json())
-        .map((res: Response) => this.setDefaultThumbnail(res));
+        .map((res: Response) => this.setDefaultThumbnail(res))
+        .map((res: Response) => this.pushRecommendedPosts(res));
 
   }
 

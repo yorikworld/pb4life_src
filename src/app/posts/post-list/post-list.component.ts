@@ -4,6 +4,7 @@ import {PostsService} from '../posts.service';
 import {Router} from '@angular/router';
 import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 import {VkComponent} from '../../shared/vk.comments.component';
+import {environment} from 'environments/environment'
 
 @Component({
   selector: 'app-post-list',
@@ -16,6 +17,7 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
   posts: Post[];
   popularPosts: Post[];
   latestPosts: Post[];
+  recommendedPosts: Post[];
   categories: Array<any>;
   public postsByCat: Array<any>;
   public myInterval: number = 5000;
@@ -23,6 +25,7 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
   public activeSlideIndex: number;
   public noPause: boolean;
   public vkApi: any;
+  public DEPLOY_PATH: string;
 
   constructor(private postsService: PostsService, private router: Router,
               public toastr: ToastsManager, vcr: ViewContainerRef,
@@ -31,8 +34,10 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
     this.posts = [{thumbnail: '', title: {rendered: ''}}];
     this.popularPosts = [{thumbnail: '', title: {rendered: ''}}];
     this.latestPosts = [{thumbnail: '', title: {rendered: ''}}];
+    this.recommendedPosts = this.postsService.recommendedPosts$;
     this.postsByCat = [];
     this.vkApi = vkComponent.init();
+    this.DEPLOY_PATH = environment.DEPLOY_PATH;
   }
 
   getPosts() {

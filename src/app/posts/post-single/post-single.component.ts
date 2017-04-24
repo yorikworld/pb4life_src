@@ -4,6 +4,8 @@ import {PostsService} from '../posts.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Location} from '@angular/common';
 import {VkComponent} from '../../shared/vk.comments.component';
+import {environment} from "../../../environments/environment";
+declare var jQuery: any;
 
 @Component({
   selector: 'app-post-single',
@@ -17,10 +19,15 @@ export class PostSingleComponent implements OnInit, AfterViewInit {
   author: any;
   date_gmt: string = '';
   public vkApi: any;
+  public DEPLOY_PATH: string;
 
   constructor(private postsService: PostsService, private route: ActivatedRoute,
               private location: Location, vkComponent: VkComponent) {
     this.vkApi = vkComponent.init();
+    this.DEPLOY_PATH = environment.DEPLOY_PATH;
+  }
+
+  ngAfterViewInit(){
   }
 
   getPost(slug) {
@@ -46,17 +53,6 @@ export class PostSingleComponent implements OnInit, AfterViewInit {
       let slug = params['slug'];
       this.getPost(slug);
     });
-  }
-
-  ngAfterViewInit() {
-    // var myShare = document.getElementById('my-share');
-    // console.log(myShare);
-    // var share = window['Ya'].share2(myShare, {
-    //     content: {
-    //         url: 'https://yandex.com'
-    //     }
-    //     // здесь вы можете указать и другие параметры
-    // });
   }
 
   getAuthor() {

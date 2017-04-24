@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { PostListComponent } from './posts/post-list/post-list.component';
-import { PostSingleComponent } from './posts/post-single/post-single.component';
-import {PageComponent} from "./pages/page/page.component";
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {PostListComponent} from './posts/post-list/post-list.component';
+import {PostSingleComponent} from './posts/post-single/post-single.component';
 import {Page404Component} from "./pages/page404/page404.component";
 import {ContactComponent} from "./pages/contact/contact.component";
 
@@ -13,7 +12,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: ':slug',
+    path: 'post/:slug',
     component: PostSingleComponent
   },
   {
@@ -25,8 +24,8 @@ const routes: Routes = [
     component: Page404Component
   },
   {
-      path: '**',
-      redirectTo: '404'
+    path: '**',
+    redirectTo: '404'
   }
 ];
 
@@ -35,4 +34,5 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class Wpng2RoutingModule { }
+export class RoutingModule {
+}
