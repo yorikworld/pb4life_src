@@ -1,10 +1,19 @@
-import {Component, OnInit, ViewContainerRef, ElementRef, AfterContentInit, AfterViewInit} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewContainerRef,
+  ElementRef,
+  AfterContentInit,
+  AfterViewInit,
+  OnDestroy
+} from '@angular/core';
 import {Post} from '../post';
 import {PostsService} from '../posts.service';
 import {Router} from '@angular/router';
 import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 import {VkComponent} from '../../shared/vk.comments.component';
 import {environment} from 'environments/environment'
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-post-list',
@@ -12,13 +21,14 @@ import {environment} from 'environments/environment'
   styleUrls: ['./post-list.component.css'],
   providers: [PostsService, ToastsManager, VkComponent]
 })
-export class PostListComponent implements OnInit, AfterContentInit, AfterViewInit {
+export class PostListComponent implements OnInit, AfterContentInit, AfterViewInit, OnDestroy {
 
   posts: Post[];
+  postsSubscription: Subscription;
   popularPosts: Post[];
   latestPosts: Post[];
-  recommendedPosts: Post[];
   categories: Array<any>;
+  categoriesSubscriber: Subscription;
   public postsByCat: Array<any>;
   public myInterval: number = 5000;
   public noWrapSlides: boolean = false;
@@ -34,21 +44,29 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
     this.posts = [{thumbnail: '', title: {rendered: ''}}];
     this.popularPosts = [{thumbnail: '', title: {rendered: ''}}];
     this.latestPosts = [{thumbnail: '', title: {rendered: ''}}];
-    this.recommendedPosts = this.postsService.recommendedPosts$;
     this.postsByCat = [];
     this.vkApi = vkComponent.init();
     this.DEPLOY_PATH = environment.DEPLOY_PATH;
   }
 
-  getPosts() {
-    this.postsService
-        .getPosts()
-        .subscribe(res => {
-          this.posts = res;
-          this.popularPosts = [].concat(this.posts);
-          this.getPopularPosts();
-        });
+  ngOnInit() {
+
+
+    this.getPostsNumber(4);
+    this.categoriesSubscriber = this.postsService.categories$.subscribe(res => {
+      this.categories = res;
+      this.getPostsByCategories();
+    });
   }
+
+  // getPosts() {
+  //   this.postsService
+  //       .getPosts()
+  //       .subscribe(res => {
+  //         this.posts = res;
+  //
+  //       });
+  // }
 
   getPopularPosts(): Post[] {
     if (!this.popularPosts) {
@@ -69,25 +87,13 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
         })
   }
 
-  getAllCategories() {
-    this.postsService
-        .getAllCategories()
-        .subscribe(res => {
-          this.categories = res;
-          this.getPostsByCategories();
-          // console.log(this.postsByCat);
-          // this.toastr.success('You are awesome!', 'Success!');
-        })
-  }
-
-
-  getPostsByCategory(count, catId) {
+  getPostsByCategory(count, catId) { //create array of 4 posts for category id
     this.postsService
         .getPostsByCategory(count, catId)
         .subscribe(res => {
-          res['currentCat'] = this.getCategoryNameById(catId);
+          res['currentCat'] = this.postsService.searchCategoryProperty('name', 'id', catId);
           res.forEach((item) => {
-            item['date_gmt'] = this.getNormDate(item.date_gmt);
+            item['date_gmt'] = this.postsService.getNormDate(item.date_gmt);
             this.postsService.getCommentsCount(item.slug, item.id, this.vkApi);
           });
           this.postsByCat.push(res);
@@ -95,56 +101,40 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
   }
 
   getPostsByCategories() {
-    let that = this;
-    this.categories.forEach(function (item, index, array) {
+    this.categories.forEach((item, index, array) => {
       if (item.slug === 'uncategorized') {
-        that.categories.splice(index, 0);
+        this.categories.splice(index, 0);
       } else {
-        that.getPostsByCategory(4, item.id);
+        this.getPostsByCategory(4, item.id);
       }
     });
   }
 
-  getCategoryNameById(catId) {
-    let result = '';
-    this.categories.forEach(function (item) {
-      if (item.id == catId) {
-        result = item.name;
-      }
-    });
-    return result;
-  }
-
-  getNormDate(date_gmt) {
-    let d = new Date(date_gmt);
-    return d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear();
-  }
-
-  ngOnInit() {
-    this.getPosts();
-    this.getPostsNumber(4);
-    this.getAllCategories();
-  }
 
   ngAfterViewInit() {
     this.noPause = true;
+    this.postsSubscription = this.postsService.posts$.subscribe(res => {
+      this.posts = res;
+      this.popularPosts = [].concat(this.posts);
+      this.getPopularPosts();
+    });
   }
 
   ngAfterContentInit() {
   }
 
-
-  // selectPost(slug) {
-  //     this.router.navigate([slug]);
-  // }
-
-  checkParity(i) {
-    if (i & 1) {
-      return false;
-    } else {
-      return true;
-    }
-
+  ngOnDestroy() {
+    this.categoriesSubscriber.unsubscribe();
+    this.postsSubscription.unsubscribe();
+    delete this.popularPosts;
   }
+
+  // checkParity(i) {
+  //   if (i & 1) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
 }

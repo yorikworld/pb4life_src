@@ -15,6 +15,9 @@ import {Page404Component} from './pages/page404/page404.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {VkComponent} from './shared/vk.comments.component';
 import {SocialShareComponent} from './shared/social-share.component';
+import { CategoryComponent } from './pages/category/category.component';
+import { RecommendedComponent } from './components/recommended/recommended.component';
+import { RecentComponent } from './components/recent/recent.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +30,10 @@ import {SocialShareComponent} from './shared/social-share.component';
         FooterComponent,
         FooterComponent,
         VkComponent,
-        SocialShareComponent
+        SocialShareComponent,
+        CategoryComponent,
+        RecommendedComponent,
+        RecentComponent
     ],
     imports: [
         BrowserModule,

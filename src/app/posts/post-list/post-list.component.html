@@ -13,13 +13,11 @@
                     <carousel [ngClass]="{latest_slider: true}" [interval]="myInterval" [noWrap]="noWrapSlides"
                               [noPause]="noPause"
                               [(activeSlide)]="activeSlideIndex">
-                        <slide *ngFor="let post of popularPosts; let index=index">
-                            <img class="single" [routerLink]="['post', post.slug]" [src]="post.thumbnail" alt="{{post.name}}">
+                        <slide *ngFor="let post of popularPosts;">
+                            <img class="single" [routerLink]="post.slug" [src]="post.thumbnail" alt="{{post.name}}">
 
                             <div class="carousel-caption">
-                                <h4>Slide {{index}}</h4>
-
-                                <p>{{post.title.rendered}}</p>
+                                <h4>{{post.title.rendered}}</h4>
                             </div>
                         </slide>
                     </carousel>
@@ -34,7 +32,7 @@
                         <ul class="featured_nav wow fadeInDown">
                             <li *ngFor="let post of latestPosts">
                                 <img [src]="post.thumbnail" alt="{{post.name}}">
-                                <div class="title_caption"><a [routerLink]="['post', post.slug]">{{post.title.rendered}}</a></div>
+                                <div class="title_caption"><a [routerLink]="post.slug">{{post.title.rendered}}</a></div>
                             </li>
                         </ul>
                     </div>
@@ -55,21 +53,21 @@
                                     <ul class="fashion_catgnav">
                                         <li>
                                             <div class="catgimg2_container">
-                                                <a [routerLink]="['/post', post.slug]">
+                                                <a [routerLink]="post.slug">
                                                     <img alt="{{post.name}}" [src]="post.thumbnail">
                                                 </a>
                                             </div>
                                             <h2 class="catg_titile"><a
-                                                    [routerLink]="['/post', post.slug]">{{post.title.rendered}}</a>
+                                                    [routerLink]="post.slug">{{post.title.rendered}}</a>
                                             </h2>
                                             <div class="comments_box">
                                             <span
                                                     class="meta_date">{{post.date_gmt}}</span> <span
                                                     class="meta_comment"><a [ngClass]="'vk_count_'+post.id"
-                                                                            [routerLink]="['/post', post.slug]">Нет коментариев</a></span>
+                                                                            [routerLink]="post.slug">Нет коментариев</a></span>
                                                 <span
                                                         class="meta_more">
-                                            <a [routerLink]="['/post', post.slug]">Read More...</a></span></div>
+                                            <a [routerLink]="post.slug">Read More...</a></span></div>
                                             <p class="content_top">{{post.excerpt.rendered}}</p>
                                         </li>
                                     </ul>
@@ -83,12 +81,12 @@
                                                     <img alt="{{post.name}}" [src]="post.thumbnail">
                                                 </a>
                                                 <div class="media-body">
-                                                    <h4 class="media-heading"><a [routerLink]="['/post', post.slug]">{{post.title.rendered}}</a>
+                                                    <h4 class="media-heading"><a [routerLink]="post.slug">{{post.title.rendered}}</a>
                                                     </h4>
                                                     <div class="comments_box"><span
                                                             class="meta_date">{{post.date_gmt}}</span>
                                                         <span class="meta_comment">
-                                                        <a [ngClass]="'vk_count_'+post.id" [routerLink]="['/post', post.slug]">Нет коментариев</a></span>
+                                                        <a [ngClass]="'vk_count_'+post.id" [routerLink]="post.slug">Нет коментариев</a></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -239,71 +237,9 @@
                     <!--</li>-->
                     <!--</ul>-->
                     <!--</div>-->
-                    <div class="single_bottom_rightbar">
-                        <ul role="tablist" class="nav nav-tabs custom-tabs">
-                            <li class="active" role="presentation">
-                                <a data-toggle="tab" role="tab" aria-controls="home" href="#recommended">Мы рекомендуем</a>
-                            </li>
-                            <!--<li role="presentation">-->
-                                <!--<a data-toggle="tab" role="tab" aria-controls="messages" href="#recentComent">Recent Comment</a>-->
-                            <!--</li>-->
-                        </ul>
-                        <div class="tab-content">
-                            <div id="mostPopular" class="tab-pane fade in active" role="tabpanel">
-                                <ul class="small_catg popular_catg wow fadeInDown">
-                                    <li *ngFor="let recPost of recommendedPosts;">
-                                        <div class="media wow fadeInDown"><a class="media-left" [routerLink]="['post', recPost.slug]"><img
-                                                src="{{recPost.thumbnail}}" alt="{{recPost.name}}"></a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a [routerLink]="['post', recPost.slug]">{{recPost.title.rendered}}</a></h4>
-                                                <p>{{recPost.excerpt.rendered}}</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div id="recentComent" class="tab-pane fade" role="tabpanel">
-                                <ul class="small_catg popular_catg">
-                                    <li>
-                                        <div class="media wow fadeInDown"><a class="media-left" href="#"><img
-                                                src="{{DEPLOY_PATH}}assets/images/NoImage.jpg" alt=""></a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium
-                                                    lobortis </a></h4>
-                                                <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus,
-                                                    egestas imperdiet nulla nisl quis mauris. Suspendisse a
-                                                    pharetra </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="media wow fadeInDown"><a class="media-left" href="#"><img
-                                                src="{{DEPLOY_PATH}}assets/images/NoImage.jpg" alt=""></a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium
-                                                    lobortis </a></h4>
-                                                <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus,
-                                                    egestas imperdiet nulla nisl quis mauris. Suspendisse a
-                                                    pharetra </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="media wow fadeInDown"><a class="media-left" href="#"><img
-                                                src="{{DEPLOY_PATH}}assets/images/NoImage.jpg" alt=""></a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium
-                                                    lobortis </a></h4>
-                                                <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus,
-                                                    egestas imperdiet nulla nisl quis mauris. Suspendisse a
-                                                    pharetra </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+
+                    <app-recommended></app-recommended>
+
                     <div class="single_bottom_rightbar">
                         <h2>Blog Archive</h2>
                         <div class="blog_archive wow fadeInDown">

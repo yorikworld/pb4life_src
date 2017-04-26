@@ -1,0 +1,66 @@
+<div class="single_bottom_rightbar">
+    <ul role="tablist" class="nav nav-tabs custom-tabs">
+        <li class="active" role="presentation">
+            <a data-toggle="tab" role="tab" aria-controls="home" href="#recommended">Мы рекомендуем</a>
+        </li>
+        <!--<li role="presentation">-->
+        <!--<a data-toggle="tab" role="tab" aria-controls="messages" href="#recentComent">Recent Comment</a>-->
+        <!--</li>-->
+    </ul>
+    <div class="tab-content">
+        <div id="mostPopular" class="tab-pane fade in active" role="tabpanel">
+            <ul class="small_catg popular_catg wow fadeInDown">
+                <li *ngFor="let recPost of recommendedPosts;">
+                    <div class="media wow fadeInDown"><a class="media-left" [routerLink]="['post', recPost.slug]"><img
+                            src="{{recPost.thumbnail}}" alt="{{recPost.name}}"></a>
+                        <div class="media-body">
+                            <h4 class="media-heading"><a [routerLink]="['post', recPost.slug]">{{recPost.title.rendered}}</a>
+                            </h4>
+                            <p>{{recPost.excerpt.rendered}}</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="recentComent" class="tab-pane fade" role="tabpanel">
+            <ul class="small_catg popular_catg">
+                <li>
+                    <div class="media wow fadeInDown"><a class="media-left" href="#"><img
+                            src="{{DEPLOY_PATH}}assets/images/NoImage.jpg" alt=""></a>
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium
+                                lobortis </a></h4>
+                            <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus,
+                                egestas imperdiet nulla nisl quis mauris. Suspendisse a
+                                pharetra </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="media wow fadeInDown"><a class="media-left" href="#"><img
+                            src="{{DEPLOY_PATH}}assets/images/NoImage.jpg" alt=""></a>
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium
+                                lobortis </a></h4>
+                            <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus,
+                                egestas imperdiet nulla nisl quis mauris. Suspendisse a
+                                pharetra </p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="media wow fadeInDown"><a class="media-left" href="#"><img
+                            src="{{DEPLOY_PATH}}assets/images/NoImage.jpg" alt=""></a>
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="#">Duis condimentum nunc pretium
+                                lobortis </a></h4>
+                            <p>Nunc tincidunt, elit non cursus euismod, lacus augue ornare metus,
+                                egestas imperdiet nulla nisl quis mauris. Suspendisse a
+                                pharetra </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

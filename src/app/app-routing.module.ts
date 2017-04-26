@@ -4,6 +4,7 @@ import {PostListComponent} from './posts/post-list/post-list.component';
 import {PostSingleComponent} from './posts/post-single/post-single.component';
 import {Page404Component} from "./pages/page404/page404.component";
 import {ContactComponent} from "./pages/contact/contact.component";
+import {CategoryComponent} from "./pages/category/category.component";
 
 const routes: Routes = [
   {
@@ -12,7 +13,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'post/:slug',
+    path: ':slug',
     component: PostSingleComponent
   },
   {
@@ -20,12 +21,16 @@ const routes: Routes = [
     component: ContactComponent
   },
   {
-    path: '404',
+    path: 'category/:categorySlug',
+    component: CategoryComponent
+  },
+  {
+    path: 'page/404',
     component: Page404Component
   },
   {
     path: '**',
-    redirectTo: '404'
+    redirectTo: 'page/404'
   }
 ];
 

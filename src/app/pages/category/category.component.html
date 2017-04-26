@@ -1,0 +1,83 @@
+<div class="container">
+    <section id="mainContent">
+        <div class="content_bottom">
+            <div class="col-lg-8 col-md-8">
+                <div class="content_bottom_left">
+                    <div class="single_category wow fadeInDown animated"
+                         style="visibility: visible; animation-name: fadeInDown;">
+                        <div class="archive_style_1">
+                            <h2><span class="bold_line"><span></span></span> <span class="solid_line"></span> <span
+                                    class="title_text">{{categoryName}}</span></h2>
+                            <ng-container *ngIf="show">
+                                <div class="single_archive wow fadeInDown animated" *ngFor="let post of posts"
+                                     style="visibility: visible; animation-name: fadeInDown;">
+                                    <div class="archive_imgcontainer"><img [src]="post.thumbnail"
+                                                                           [alt]="post.title.rendered"></div>
+                                    <div class="archive_caption">
+                                        <h2><a [routerLink]="['',post.slug]">{{post.title.rendered}}</a></h2>
+                                        <p>{{post.excerpt.rendered}}</p>
+                                    </div>
+                                    <a class="read_more" [routerLink]="['',post.slug]"><span>Read More</span></a>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="!show">
+                                <div class="error_page_content">
+                                    <h2>Something went wrong :(</h2>
+                                    <h3>This category does not have posts yet.</h3>
+                                    <img height="300" [src]="'assets/images/fail.jpg'" alt="fail">
+                                    <p class="wow fadeInLeftBig animated" style="visibility: visible; animation-name: fadeInLeftBig;">Please, continue to our <a routerLink="">Home page</a></p>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+                <div class="pagination_area" *ngIf="show">
+                    <nav>
+                        <ul class="pagination">
+                            <li><a href="#"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="content_bottom_right">
+
+                    <app-recent></app-recent>
+
+                    <app-recommended></app-recommended>
+
+                    <div class="single_bottom_rightbar">
+                        <h2>Blog Archive</h2>
+                        <div class="blog_archive wow fadeInDown animated"
+                             style="visibility: visible; animation-name: fadeInDown;">
+                            <form action="#">
+                                <select>
+                                    <option value="">Blog Archive</option>
+                                    <option value="">October(20)</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="single_bottom_rightbar wow fadeInDown animated"
+                         style="visibility: visible; animation-name: fadeInDown;">
+                        <h2>Popular Lnks</h2>
+                        <ul>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Blog Home</a></li>
+                            <li><a href="#">Error Page</a></li>
+                            <li><a href="#">Social link</a></li>
+                            <li><a href="#">Login</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

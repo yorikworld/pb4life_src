@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 
 import {Post} from './post';
 import {environment} from "../../environments/environment";
-import {isNullOrUndefined} from "util";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class PostsService {
@@ -17,6 +17,8 @@ export class PostsService {
   private _prod: boolean;
   private DEPLOY_PATH: string;
   private recommendedPosts: Array<{}>;
+  private categories: BehaviorSubject<Array<{}>>;
+  private posts: BehaviorSubject<Post[]>;
 
   constructor(private http: Http) {
     this._wpBase = environment.api;
@@ -24,19 +26,53 @@ export class PostsService {
     this._prod = environment.production;
     this.DEPLOY_PATH = environment.DEPLOY_PATH;
     this.recommendedPosts = [];
+    this.categories = new BehaviorSubject([]);
+    this.categories$ = this.getAllCategories();
+    this.posts = new BehaviorSubject([]);
+    this.posts$ = this.getPosts();
   }
 
-  get recommendedPosts$(){
+  get posts$() {
+    return this.posts.asObservable();
+  }
+
+  set posts$(res: any) {
+    res.subscribe(x => {
+      this.posts.next(x);
+    });
+
+  }
+
+  get recommendedPosts$() {
     return this.recommendedPosts;
   }
 
-  pushRecommendedPosts(res){
-    res.forEach(item =>{
-      if(item['acf']['we_recommended'])
-        this.recommendedPosts.push(item);
+  get categories$() {
+    return this.categories.asObservable();
+  }
+
+  set categories$(res) {
+    res.subscribe(x => {
+      this.categories.next(x);
+    })
+  }
+
+  pushRecommendedPosts(res) {
+    res.forEach(item => {
+      if (item['acf']['we_recommended']) {
+        if (this.recommendedPosts.length < 5) {
+          this.recommendedPosts.push(item);
+          this.recommendedPosts.reverse();
+        }
+      }
     });
     return res
   }
+
+  // pushPopularPosts(res){
+  //
+  //   return res;
+  // }
 
   setDefaultThumbnail(res) {
     res.forEach(item => {
@@ -46,14 +82,13 @@ export class PostsService {
     return res;
   }
 
-  getPosts(): Observable<Post[]> {
-
+  private getPosts(): Observable<Post[]> {
+    //TODO: возможно не стоит всегда брать все посты? А возможно стоит :)
     return this.http
         .get(this._wpBase + 'posts')
         .map((res: Response) => res.json())
         .map((res: Response) => this.setDefaultThumbnail(res))
         .map((res: Response) => this.pushRecommendedPosts(res));
-
   }
 
   getPost(slug): Observable<Post> {
@@ -62,7 +97,6 @@ export class PostsService {
         .get(this._wpBase + `posts?slug=${slug}`)
         .map((res: Response) => res.json())
         .map((res: Response) => this.setDefaultThumbnail(res));
-
   }
 
   getPostsNumber(number): Observable<Post[]> {
@@ -73,7 +107,7 @@ export class PostsService {
         .map((res: Response) => this.setDefaultThumbnail(res));
   }
 
-  getAllCategories(): Observable<Post[]> {
+  private getAllCategories(): Observable<Post[]> {
 
     return this.http
         .get(this._wpBase + 'categories')
@@ -84,7 +118,12 @@ export class PostsService {
     return this.http
         .get(this._wpBase + `posts?categories=${categoryId}&per_page=${postsCount}`)
         .map((res: Response) => res.json())
-        .map((res: Response) => this.setDefaultThumbnail(res));
+        .map((res: Response) => this.setDefaultThumbnail(res))
+  }
+
+  getNormDate(date_gmt) {
+    let d = new Date(date_gmt);
+    return d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear();
   }
 
   getAuthor(id): Observable<Post> {
@@ -102,6 +141,20 @@ export class PostsService {
 
   }
 
+  searchCategoryProperty(whatSearch: string, byWhat: string, byWhatValue: string) {
+    // search "whatSearch" by "byWhat" in categories. byWhatValue - value of search.
+    let result = '';
+    this.categories$
+        .subscribe(res => {
+          res.forEach((item) => {
+            if (item[byWhat] == byWhatValue) {
+              return result = item['' + whatSearch + ''];
+            }
+          });
+        });
+    return result;
+  }
+
   getCommentsCount(slug, id, vkApi) {
 
     if (this._prod) {
@@ -109,7 +162,7 @@ export class PostsService {
       let promise = new Promise(function (resolve, reject) {
         vkApi.Api.call('widgets.getComments',
             {widget_api_id: '5900450', page_id: 'http://pb4life.in.ua/' + slug},
-            function (obj) {
+            (obj) => {
               if (obj.response['count'])
                 resolve(obj.response['count']);
               else

@@ -5,7 +5,8 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Location} from '@angular/common';
 import {VkComponent} from '../../shared/vk.comments.component';
 import {environment} from "../../../environments/environment";
-declare var jQuery: any;
+import {isUndefined} from "util";
+// declare var jQuery: any;
 
 @Component({
   selector: 'app-post-single',
@@ -21,21 +22,23 @@ export class PostSingleComponent implements OnInit, AfterViewInit {
   public vkApi: any;
   public DEPLOY_PATH: string;
 
-  constructor(private postsService: PostsService, private route: ActivatedRoute,
+  constructor(private postsService: PostsService, private activeRoute: ActivatedRoute,
+              private router: Router,
               private location: Location, vkComponent: VkComponent) {
     this.vkApi = vkComponent.init();
     this.DEPLOY_PATH = environment.DEPLOY_PATH;
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
   }
 
   getPost(slug) {
     this.postsService
         .getPost(slug)
         .subscribe(res => {
+          if (isUndefined(res[0]))
+            document.location.href = 'page/404';
           this.post = res[0];
-          console.log(this.post);
           this.postsService.setViewCountPlusOne(this.post['id'])
               .subscribe(res => {
                 if (!res)
@@ -49,7 +52,7 @@ export class PostSingleComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.route.params.forEach((params: Params) => {
+    this.activeRoute.params.forEach((params: Params) => {
       let slug = params['slug'];
       this.getPost(slug);
     });
