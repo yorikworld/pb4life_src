@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PostsService} from 'app/posts/posts.service';
 import {ActivatedRoute, Params} from "@angular/router";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-category',
@@ -15,6 +16,7 @@ export class CategoryComponent implements OnInit {
   categoryName: any;
   posts: Array<{}>;
   show: boolean;
+  DEPLOY_PATH: string;
 
   constructor(private postsService: PostsService, private route: ActivatedRoute) {
     this.route.params.forEach((params: Params) => {
@@ -29,6 +31,7 @@ export class CategoryComponent implements OnInit {
         });
       });
     });
+    this.DEPLOY_PATH = environment.DEPLOY_PATH;
 
   }
 

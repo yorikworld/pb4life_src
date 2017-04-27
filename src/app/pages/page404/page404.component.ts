@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-page404',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Page404Component implements OnInit {
 
-  constructor() { }
+  DEPLOY_PATH: string;
+
+  constructor() {
+    this.DEPLOY_PATH = environment.DEPLOY_PATH;
+  }
 
   ngOnInit() {
   }

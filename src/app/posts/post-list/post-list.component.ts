@@ -14,6 +14,8 @@ import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 import {VkComponent} from '../../shared/vk.comments.component';
 import {environment} from 'environments/environment'
 import {Subscription} from "rxjs/Subscription";
+import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
+
 
 @Component({
   selector: 'app-post-list',
