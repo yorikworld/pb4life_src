@@ -35,7 +35,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="pagination_area" *ngIf="show && (this.posts.length > perPage)">{{page}}
+                <div class="pagination_area" *ngIf="show && (this.posts.length > perPage)">
                     <pagination [totalItems]="posts.length" [(ngModel)]="page" [maxSize]="5" [itemsPerPage]="perPage"
                                 (pageChanged)="pageChanged($event)" class="pagination-sm"
                                 [boundaryLinks]="true"></pagination>

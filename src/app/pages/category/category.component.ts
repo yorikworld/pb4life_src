@@ -20,7 +20,7 @@ export class CategoryComponent implements OnInit {
   show: boolean;
   DEPLOY_PATH: string;
   page: number;
-  perPage: number = 1;
+  perPage: number = 5;
 
   constructor(private postsService: PostsService, private route: ActivatedRoute,
               private location: Location) {
@@ -50,7 +50,6 @@ export class CategoryComponent implements OnInit {
       this.location.go(`category/${this.categorySlug}`);
     else
       this.location.go(`category/${this.categorySlug}/page/${$event.page}`);
-    console.log($event);
   }
 
   getPosts() {
@@ -62,7 +61,6 @@ export class CategoryComponent implements OnInit {
             // this.postsService.getCommentsCount(item.slug, item.id, this.vkApi);
           });
           this.posts = res;
-          console.log(this.posts.length);
           this.show = !!(this.posts.length);
         });
   }
