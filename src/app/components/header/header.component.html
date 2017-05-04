@@ -38,7 +38,8 @@
                     <ul class="nav navbar-nav custom_nav">
                         <li class=""><a routerLink=""><i class="fa fa-home" aria-hidden="true"></i>&nbsp; Home</a></li>
                         <li class="dropdown"><a href="#" class="" data-toggle="dropdown" role="button"
-                                                aria-expanded="false">Categories</a>
+                                                aria-expanded="false">
+                            <i class="fa fa-bookmark" aria-hidden="true"></i>&nbsp; Categories</a>
                             <ul class="dropdown-menu" role="menu">
                                 <li *ngFor="let cat of categories" ><a [routerLink]="['category', cat.slug]">{{cat.name}}</a></li>
                             </ul>
