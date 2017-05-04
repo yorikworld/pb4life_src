@@ -46,7 +46,7 @@
                         <div class="single_category wow fadeInDown">
                             <h2 *ngIf="posts.length !== 0"><span class="bold_line"><span></span></span> <span
                                     class="solid_line"></span>
-                                <a class="title_text" href="#">{{posts['currentCat']}}</a>
+                                <a class="title_text" [routerLink]="['category', posts['currentCatSlug']]">{{posts['currentCat']}}</a>
                             </h2>
                             <ng-container *ngFor="let post of posts; let i = index">
                                 <div *ngIf="i === 0" class="business_category_left wow fadeInDown">
@@ -240,27 +240,27 @@
 
                     <app-recommended></app-recommended>
 
-                    <div class="single_bottom_rightbar">
-                        <h2>Blog Archive</h2>
-                        <div class="blog_archive wow fadeInDown">
-                            <form action="#">
-                                <select>
-                                    <option value="">Blog Archive</option>
-                                    <option value="">October(20)</option>
-                                </select>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="single_bottom_rightbar wow fadeInDown">
-                        <h2>Popular Lnks</h2>
-                        <ul>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Blog Home</a></li>
-                            <li><a href="#">Error Page</a></li>
-                            <li><a href="#">Social link</a></li>
-                            <li><a href="#">Login</a></li>
-                        </ul>
-                    </div>
+                    <!--<div class="single_bottom_rightbar">-->
+                        <!--<h2>Blog Archive</h2>-->
+                        <!--<div class="blog_archive wow fadeInDown">-->
+                            <!--<form action="#">-->
+                                <!--<select>-->
+                                    <!--<option value="">Blog Archive</option>-->
+                                    <!--<option value="">October(20)</option>-->
+                                <!--</select>-->
+                            <!--</form>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="single_bottom_rightbar wow fadeInDown">-->
+                        <!--<h2>Popular Lnks</h2>-->
+                        <!--<ul>-->
+                            <!--<li><a href="#">Blog</a></li>-->
+                            <!--<li><a href="#">Blog Home</a></li>-->
+                            <!--<li><a href="#">Error Page</a></li>-->
+                            <!--<li><a href="#">Social link</a></li>-->
+                            <!--<li><a href="#">Login</a></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>

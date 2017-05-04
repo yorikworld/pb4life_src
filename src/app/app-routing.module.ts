@@ -25,6 +25,10 @@ const routes: Routes = [
     component: CategoryComponent
   },
   {
+    path: 'category/:categorySlug/page/:pageNumber',
+    component: CategoryComponent,
+  },
+  {
     path: 'page/404',
     component: Page404Component
   },

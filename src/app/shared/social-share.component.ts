@@ -11,13 +11,13 @@ export class SocialShareComponent implements OnInit {
   }
 
   ngOnInit() {
-    // let el = document.getElementById('yashare-script');
-    // if (el) {
-    //   el.remove();
-    // }
-    // let script = document.createElement('script');
-    // script.id = 'yashare-script';
-    // script.src = '//yastatic.net/share2/share.js';
-    // document.body.appendChild(script);
+    let el = document.getElementById('yashare-script');
+    if (el) {
+      el.remove();
+    }
+    let script = document.createElement('script');
+    script.id = 'yashare-script';
+    script.src = '//yastatic.net/share2/share.js';
+    document.body.appendChild(script);
   }
 }

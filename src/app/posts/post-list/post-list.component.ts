@@ -14,7 +14,6 @@ import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 import {VkComponent} from '../../shared/vk.comments.component';
 import {environment} from 'environments/environment'
 import {Subscription} from "rxjs/Subscription";
-// import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
 
 @Component({
@@ -61,6 +60,10 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
     });
   }
 
+  toSingle(currentCategorySlug){
+    // this.postsService.currentCategory$ = currentCategorySlug;
+  }
+
   // getPosts() {
   //   this.postsService
   //       .getPosts()
@@ -94,6 +97,7 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
         .getPostsByCategory(count, catId)
         .subscribe(res => {
           res['currentCat'] = this.postsService.searchCategoryProperty('name', 'id', catId);
+          res['currentCatSlug'] = this.postsService.searchCategoryProperty('slug', 'id', catId);
           res.forEach((item) => {
             item['date_gmt'] = this.postsService.getNormDate(item.date_gmt);
             this.postsService.getCommentsCount(item.slug, item.id, this.vkApi);
@@ -117,6 +121,7 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
     this.noPause = true;
     this.postsSubscription = this.postsService.posts$.subscribe(res => {
       this.posts = res;
+      console.log(this.posts);
       this.popularPosts = [].concat(this.posts);
       this.getPopularPosts();
     });

@@ -19,6 +19,7 @@ export class PostsService {
   private recommendedPosts: Array<{}>;
   private categories: BehaviorSubject<Array<{}>>;
   private posts: BehaviorSubject<Post[]>;
+  private currentCategory: BehaviorSubject<string>;
 
   constructor(private http: Http) {
     this._wpBase = environment.api;
@@ -30,32 +31,45 @@ export class PostsService {
     this.categories$ = this.getAllCategories();
     this.posts = new BehaviorSubject([]);
     this.posts$ = this.getPosts();
+    this.currentCategory = new BehaviorSubject('');
   }
 
-  get posts$() {
+  get posts$(): Observable<any> {
     return this.posts.asObservable();
   }
 
-  set posts$(res: any) {
+  set posts$(res: Observable<any>) {
     res.subscribe(x => {
       this.posts.next(x);
     });
 
   }
 
-  get recommendedPosts$() {
+  get recommendedPosts$(): Post[] {
     return this.recommendedPosts;
   }
 
-  get categories$() {
+  get categories$(): Observable<any> {
     return this.categories.asObservable();
   }
 
-  set categories$(res) {
+  set categories$(res: Observable<any>) {
     res.subscribe(x => {
       this.categories.next(x);
     })
   }
+
+  // get currentCategory$() {
+  //   return this.currentCategory.asObservable();
+  // }
+  //
+  // set currentCategory$(res: any){
+  //   // console.log('!!!');
+  //   // res.subscribe(x => {
+  //     this.currentCategory.next(res);
+  //   // });
+  // }
+
 
   pushRecommendedPosts(res) {
     res.forEach(item => {
@@ -115,8 +129,11 @@ export class PostsService {
   }
 
   getPostsByCategory(postsCount: number, categoryId: number) {
+    let query = `posts?categories=${categoryId}&per_page=${postsCount}`;
+    if (postsCount === -1)
+      query = `posts?categories=${categoryId}`;
     return this.http
-        .get(this._wpBase + `posts?categories=${categoryId}&per_page=${postsCount}`)
+        .get(this._wpBase + query)
         .map((res: Response) => res.json())
         .map((res: Response) => this.setDefaultThumbnail(res))
   }
@@ -135,7 +152,6 @@ export class PostsService {
 
   setViewCountPlusOne(id): Observable<any> {
     //TODO: add nonce check to this request.
-    console.log(id);
     return this.http
         .get(this._host + 'wp-admin/admin-ajax.php?action=post_view_count&id=' + id)
 

@@ -2,12 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {PostsService} from 'app/posts/posts.service';
 import {ActivatedRoute, Params} from "@angular/router";
 import {environment} from "../../../environments/environment";
+import {Location} from '@angular/common';
+import {PaginationConfig} from "ngx-bootstrap";
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css'],
-  providers: [PostsService]
+  providers: [PostsService, PaginationConfig]
 })
 export class CategoryComponent implements OnInit {
 
@@ -17,10 +19,14 @@ export class CategoryComponent implements OnInit {
   posts: Array<{}>;
   show: boolean;
   DEPLOY_PATH: string;
+  page: number;
+  perPage: number = 1;
 
-  constructor(private postsService: PostsService, private route: ActivatedRoute) {
+  constructor(private postsService: PostsService, private route: ActivatedRoute,
+              private location: Location) {
     this.route.params.forEach((params: Params) => {
       this.categorySlug = params['categorySlug'];
+      this.page = +params['pageNumber'];
       this.postsService.categories$.subscribe(res => {
         res.forEach((item) => {
           if (item['slug'] == this.categorySlug) {
@@ -39,8 +45,16 @@ export class CategoryComponent implements OnInit {
 
   }
 
-  getPosts(){
-    this.postsService.getPostsByCategory(10, this.categoryId)
+  pageChanged($event){
+    if($event.page === 1)
+      this.location.go(`category/${this.categorySlug}`);
+    else
+      this.location.go(`category/${this.categorySlug}/page/${$event.page}`);
+    console.log($event);
+  }
+
+  getPosts() {
+    this.postsService.getPostsByCategory(-1, this.categoryId)
         .subscribe(res => {
           res['currentCat'] = this.categoryName;
           res.forEach((item) => {
@@ -48,6 +62,7 @@ export class CategoryComponent implements OnInit {
             // this.postsService.getCommentsCount(item.slug, item.id, this.vkApi);
           });
           this.posts = res;
+          console.log(this.posts.length);
           this.show = !!(this.posts.length);
         });
   }
