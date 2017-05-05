@@ -20,7 +20,7 @@ import {Subscription} from "rxjs/Subscription";
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.css'],
-  providers: [PostsService, ToastsManager, VkComponent]
+  providers: [ToastsManager, VkComponent]
 })
 export class PostListComponent implements OnInit, AfterContentInit, AfterViewInit, OnDestroy {
 
@@ -60,7 +60,7 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
     });
   }
 
-  toSingle(currentCategorySlug){
+  toSingle(currentCategorySlug) {
     // this.postsService.currentCategory$ = currentCategorySlug;
   }
 
@@ -118,10 +118,9 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
 
 
   ngAfterViewInit() {
-    this.noPause = true;
+    this.noPause = false;
     this.postsSubscription = this.postsService.posts$.subscribe(res => {
       this.posts = res;
-      console.log(this.posts);
       this.popularPosts = [].concat(this.posts);
       this.getPopularPosts();
     });

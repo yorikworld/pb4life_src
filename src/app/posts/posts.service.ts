@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import {Post} from './post';
 import {environment} from "../../environments/environment";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {isUndefined} from "util";
 
 @Injectable()
 export class PostsService {
@@ -20,8 +21,10 @@ export class PostsService {
   private categories: BehaviorSubject<Array<{}>>;
   private posts: BehaviorSubject<Post[]>;
   private currentCategory: BehaviorSubject<string>;
+  private tags: BehaviorSubject<Array<Object>>;
 
   constructor(private http: Http) {
+    console.log('!!!');
     this._wpBase = environment.api;
     this._host = environment.host;
     this._prod = environment.production;
@@ -32,6 +35,8 @@ export class PostsService {
     this.posts = new BehaviorSubject([]);
     this.posts$ = this.getPosts();
     this.currentCategory = new BehaviorSubject('');
+    this.tags$ = this.getAllTags();
+    this.tags = new BehaviorSubject([]);
   }
 
   get posts$(): Observable<any> {
@@ -42,7 +47,16 @@ export class PostsService {
     res.subscribe(x => {
       this.posts.next(x);
     });
+  }
 
+  get tags$(): Observable<any> {
+    return this.tags.asObservable();
+  }
+
+  set tags$(res: Observable<any>) {
+    res.subscribe(x => {
+      this.tags.next(x);
+    });
   }
 
   get recommendedPosts$(): Post[] {
@@ -150,11 +164,17 @@ export class PostsService {
         .map((res: Response) => res.json());
   }
 
+  getAllTags(): Observable<Array<Object>> {
+
+    return this.http
+        .get(this._wpBase + 'tags')
+        .map((res: Response) => res.json());
+  }
+
   setViewCountPlusOne(id): Observable<any> {
     //TODO: add nonce check to this request.
     return this.http
         .get(this._host + 'wp-admin/admin-ajax.php?action=post_view_count&id=' + id)
-
   }
 
   searchCategoryProperty(whatSearch: string, byWhat: string, byWhatValue: string) {
@@ -197,5 +217,9 @@ export class PostsService {
           )
           .catch(err => console.log(err));
     }
+  }
+
+  goTo404(): void {
+    document.location.href = 'page/404';
   }
 }

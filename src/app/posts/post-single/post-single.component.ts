@@ -12,7 +12,7 @@ import {Subscription} from "rxjs/Subscription";
   selector: 'app-post-single',
   templateUrl: './post-single.component.html',
   styleUrls: ['./post-single.component.css'],
-  providers: [PostsService, VkComponent]
+  providers: [VkComponent]
 })
 export class PostSingleComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -36,22 +36,19 @@ export class PostSingleComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getPost(slug) {
     this.postsService
-      .getPost(slug)
-      .subscribe(res => {
-        if (isUndefined(res[0]))
-          document.location.href = 'page/404';
-        this.post = res[0];
-        console.log(this.post);
-        this.postsService.setViewCountPlusOne(this.post['id'])
-          .subscribe(res => {
-            if (!res)
-              console.log('update post count is fail');
-          });
-        this.getNormTime(this.post['date_gmt']);
-        if (!this.post)
-          this.location.go('/404');
-        this.getAuthor();
-      });
+        .getPost(slug)
+        .subscribe(res => {
+          if (isUndefined(res[0]))
+            this.postsService.goTo404();
+          this.post = res[0];
+          this.postsService.setViewCountPlusOne(this.post['id'])
+              .subscribe(res => {
+                if (!res)
+                  console.log('update post count is fail');
+              });
+          this.getNormTime(this.post['date_gmt']);
+          this.getAuthor();
+        });
   }
 
   ngOnInit() {
@@ -67,10 +64,10 @@ export class PostSingleComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getAuthor() {
     this.postsService
-      .getAuthor(this.post['author'])
-      .subscribe(res => {
-        this.author = res['name'];
-      });
+        .getAuthor(this.post['author'])
+        .subscribe(res => {
+          this.author = res['name'];
+        });
   }
 
   getNormTime(date_gmt) {

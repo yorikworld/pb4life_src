@@ -21,6 +21,8 @@ import { RecentComponent } from './components/recent/recent.component';
 import { Ng2ImgToolsModule } from 'ng2-img-tools';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { TagsComponent } from './components/tags/tags.component';
+import {PostsService} from 'app/posts/posts.service';
 
 @NgModule({
     declarations: [
@@ -36,7 +38,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
         SocialShareComponent,
         CategoryComponent,
         RecommendedComponent,
-        RecentComponent
+        RecentComponent,
+        TagsComponent
     ],
     imports: [
         BrowserModule,
@@ -49,7 +52,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
         ToastModule.forRoot(),
         CarouselModule.forRoot()
     ],
-    providers: [],
+    providers: [PostsService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -4,18 +4,19 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {environment} from "../../../environments/environment";
 import {Location} from '@angular/common';
 import {PaginationConfig} from "ngx-bootstrap";
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css'],
-  providers: [PostsService, PaginationConfig]
+  providers: [PaginationConfig]
 })
 export class CategoryComponent implements OnInit {
 
   categorySlug: string;
   categoryId: number;
-  categoryName: any;
+  categoryName: string;
   posts: Array<{}>;
   show: boolean;
   DEPLOY_PATH: string;
@@ -45,8 +46,8 @@ export class CategoryComponent implements OnInit {
 
   }
 
-  pageChanged($event){
-    if($event.page === 1)
+  pageChanged($event) {
+    if ($event.page === 1)
       this.location.go(`category/${this.categorySlug}`);
     else
       this.location.go(`category/${this.categorySlug}/page/${$event.page}`);
@@ -61,6 +62,9 @@ export class CategoryComponent implements OnInit {
             // this.postsService.getCommentsCount(item.slug, item.id, this.vkApi);
           });
           this.posts = res;
+          //TODO: отсутсвующая категория должна перенаправляться на 404.
+          if (isUndefined(this.posts))
+            this.postsService.goTo404();
           this.show = !!(this.posts.length);
         });
   }

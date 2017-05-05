@@ -29,8 +29,13 @@ const routes: Routes = [
     component: CategoryComponent,
   },
   {
+    path: 'tag/:tagName',
+    component: CategoryComponent,
+  },
+  {
     path: 'page/404',
-    component: Page404Component
+    component: Page404Component,
+    pathMatch: 'full'
   },
   {
     path: '**',

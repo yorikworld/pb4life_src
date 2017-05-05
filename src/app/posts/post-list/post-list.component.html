@@ -17,6 +17,7 @@
                             <img class="single" [routerLink]="post.slug" [src]="post.thumbnail" alt="{{post.name}}">
 
                             <div class="carousel-caption">
+                                <app-tags [post]="post"></app-tags>
                                 <h4>{{post.title.rendered}}</h4>
                             </div>
                         </slide>
