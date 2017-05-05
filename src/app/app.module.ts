@@ -23,6 +23,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { TagsComponent } from './components/tags/tags.component';
 import {PostsService} from 'app/posts/posts.service';
+import { TagComponent } from './pages/tag/tag.component';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import {PostsService} from 'app/posts/posts.service';
         CategoryComponent,
         RecommendedComponent,
         RecentComponent,
-        TagsComponent
+        TagsComponent,
+        TagComponent
     ],
     imports: [
         BrowserModule,

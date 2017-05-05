@@ -152,6 +152,23 @@ export class PostsService {
         .map((res: Response) => this.setDefaultThumbnail(res))
   }
 
+  getPostsByTagId(tagId): Observable<any> {
+
+    return this.http
+        .get(this._wpBase + `posts?tags[]=${tagId}`)
+        .map((res: Response) => res.json())
+        .map((res: Response) => this.setDefaultThumbnail(res));
+  }
+
+  // getTagIdByTagName(tagSlug){
+  //   this.tags$.subscribe(res => {
+  //     res.map(x =>{
+  //       if(x[])
+  //       console.log(x);
+  //     });
+  //   })
+  // }
+
   getNormDate(date_gmt) {
     let d = new Date(date_gmt);
     return d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear();

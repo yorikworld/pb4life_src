@@ -5,6 +5,7 @@ import {PostSingleComponent} from './posts/post-single/post-single.component';
 import {Page404Component} from "./pages/page404/page404.component";
 import {ContactComponent} from "./pages/contact/contact.component";
 import {CategoryComponent} from "./pages/category/category.component";
+import {TagComponent} from "./pages/tag/tag.component";
 
 const routes: Routes = [
   {
@@ -29,8 +30,12 @@ const routes: Routes = [
     component: CategoryComponent,
   },
   {
-    path: 'tag/:tagName',
-    component: CategoryComponent,
+    path: 'tag/:tagSlug',
+    component: TagComponent,
+  },
+  {
+    path: 'tag/:tagSlug/page/:pageNumber',
+    component: TagComponent,
   },
   {
     path: 'page/404',

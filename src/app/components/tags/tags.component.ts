@@ -4,7 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-tags',
-  templateUrl: './tags.component.html',
+  template: `<a [routerLink]="['tag', tag.slug]" *ngFor="let tag of postTags" class="category-tag" [ngStyle]="{'background': tag.color}" rel="category tag">{{tag.name}}</a>&nbsp;`,
   styleUrls: ['./tags.component.css']
 })
 export class TagsComponent implements OnInit, OnDestroy {

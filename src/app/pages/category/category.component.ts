@@ -5,6 +5,7 @@ import {environment} from "../../../environments/environment";
 import {Location} from '@angular/common';
 import {PaginationConfig} from "ngx-bootstrap";
 import {isUndefined} from "util";
+//TODO: отсутсвующая категория должна перенаправляться на 404.
 
 @Component({
   selector: 'app-category',
@@ -25,6 +26,10 @@ export class CategoryComponent implements OnInit {
 
   constructor(private postsService: PostsService, private route: ActivatedRoute,
               private location: Location) {
+    this.DEPLOY_PATH = environment.DEPLOY_PATH;
+  }
+
+  ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.categorySlug = params['categorySlug'];
       this.page = +params['pageNumber'];
@@ -38,12 +43,6 @@ export class CategoryComponent implements OnInit {
         });
       });
     });
-    this.DEPLOY_PATH = environment.DEPLOY_PATH;
-
-  }
-
-  ngOnInit() {
-
   }
 
   pageChanged($event) {
@@ -62,7 +61,6 @@ export class CategoryComponent implements OnInit {
             // this.postsService.getCommentsCount(item.slug, item.id, this.vkApi);
           });
           this.posts = res;
-          //TODO: отсутсвующая категория должна перенаправляться на 404.
           if (isUndefined(this.posts))
             this.postsService.goTo404();
           this.show = !!(this.posts.length);
