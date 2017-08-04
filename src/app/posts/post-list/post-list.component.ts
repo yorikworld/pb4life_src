@@ -3,9 +3,7 @@ import {
   OnInit,
   ViewContainerRef,
   ElementRef,
-  AfterContentInit,
-  AfterViewInit,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import {Post} from '../post';
 import {PostsService} from '../posts.service';
@@ -22,9 +20,9 @@ import {Subscription} from "rxjs/Subscription";
   styleUrls: ['./post-list.component.css'],
   providers: [ToastsManager, VkComponent]
 })
-export class PostListComponent implements OnInit, AfterContentInit, AfterViewInit, OnDestroy {
+export class PostListComponent implements OnInit, OnDestroy {
 
-  posts: Post[];
+  posts: Post[] = [];
   postsSubscription: Subscription;
   popularPosts: Post[];
   latestPosts: Post[];
@@ -33,8 +31,8 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
   public postsByCat: Array<any>;
   public myInterval: number = 5000;
   public noWrapSlides: boolean = false;
-  public activeSlideIndex: number;
-  public noPause: boolean;
+  public activeSlideIndex: number = 0;
+  public noPause: boolean = false;
   public vkApi: any;
   public DEPLOY_PATH: string;
 
@@ -42,16 +40,21 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
               public toastr: ToastsManager, vcr: ViewContainerRef,
               private elementRef: ElementRef, private vkComponent: VkComponent) {
     this.toastr.setRootViewContainerRef(vcr);
-    this.posts = [{thumbnail: '', title: {rendered: ''}}];
+    // this.posts = [{better_featured_image:{media_details:{sizes: {carousel:{source_url: ''}}}}, title: {rendered: ''}}];
     this.popularPosts = [{thumbnail: '', title: {rendered: ''}}];
     this.latestPosts = [{thumbnail: '', title: {rendered: ''}}];
     this.postsByCat = [];
-    this.vkApi = vkComponent.init();
+    // this.vkApi = vkComponent.init();
     this.DEPLOY_PATH = environment.DEPLOY_PATH;
   }
 
   ngOnInit() {
-
+    this.postsSubscription = this.postsService.posts$.subscribe(res => {
+      this.posts = res;
+      this.popularPosts = [].concat(this.posts);
+      console.log(this.popularPosts);
+      this.getPopularPosts();
+    });
 
     this.getPostsNumber(4);
     this.categoriesSubscriber = this.postsService.categories$.subscribe(res => {
@@ -73,10 +76,10 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
   //       });
   // }
 
-  getPopularPosts(): Post[] {
-    if (!this.popularPosts) {
-      return [];
-    }
+  getPopularPosts() {
+    // if (!this.popularPosts) {
+    //   return [];
+    // }
     this.popularPosts.sort((a, b) => {
       return a['acf']['views_count'] - b['acf']['views_count'];
     });
@@ -116,17 +119,8 @@ export class PostListComponent implements OnInit, AfterContentInit, AfterViewIni
     });
   }
 
-
-  ngAfterViewInit() {
-    this.noPause = false;
-    this.postsSubscription = this.postsService.posts$.subscribe(res => {
-      this.posts = res;
-      this.popularPosts = [].concat(this.posts);
-      this.getPopularPosts();
-    });
-  }
-
-  ngAfterContentInit() {
+  getThumbnail(post, thumbnail){
+    return this.postsService.getThumbnail(post, thumbnail);
   }
 
   ngOnDestroy() {

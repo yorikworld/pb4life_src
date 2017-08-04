@@ -25,13 +25,11 @@
         "assets/css/theme.css",
         "assets/css/style.css",
         "styles.css",
-        "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css",
-        "../node_modules/cropperjs/dist/cropper.css"
+        "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css"
       ],
       "scripts": [
         "assets/js/jquery.min.js",
         "assets/js/bootstrap.min.js",
-        "../node_modules/cropperjs/dist/cropper.js",
         "assets/js/wow.min.js",
         "assets/js/custom.js",
         "assets/js/slick.min.js"

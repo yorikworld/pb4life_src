@@ -67,4 +67,8 @@ export class CategoryComponent implements OnInit {
         });
   }
 
+  getThumbnail(post, thumbnail){
+    return this.postsService.getThumbnail(post, thumbnail);
+  }
+
 }

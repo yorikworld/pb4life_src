@@ -17,6 +17,14 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 `ng build --prod --deploy-url /wp-content/themes/paintball/dist`
 
+## Firebase deploy orl
+
+`https://pb4life-7dc2a.firebaseapp.com/`
+
+## Firebase deploy command
+
+`npm run build`
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).

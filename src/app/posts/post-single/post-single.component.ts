@@ -27,7 +27,7 @@ export class PostSingleComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private postsService: PostsService, private activeRoute: ActivatedRoute,
               private router: Router,
               private location: Location, vkComponent: VkComponent) {
-    this.vkApi = vkComponent.init();
+    // this.vkApi = vkComponent.init();
     this.DEPLOY_PATH = environment.DEPLOY_PATH;
   }
 
@@ -77,5 +77,9 @@ export class PostSingleComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     // this.currentCategorySubscription.unsubscribe();
+  }
+
+  getThumbnail(post, thumbnail){
+    return this.postsService.getThumbnail(post, thumbnail);
   }
 }

@@ -14,9 +14,14 @@ export class RecommendedComponent implements OnInit {
 
   constructor(private postsService: PostsService) {
     this.recommendedPosts = this.postsService.recommendedPosts$;
+    console.log(this.recommendedPosts);
     this.DEPLOY_PATH = environment.DEPLOY_PATH;
   }
 
   ngOnInit() {
+  }
+
+  getThumbnail(post, thumbnail){
+    return this.postsService.getThumbnail(post, thumbnail);
   }
 }

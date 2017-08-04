@@ -18,7 +18,6 @@ import {SocialShareComponent} from './shared/social-share.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { RecommendedComponent } from './components/recommended/recommended.component';
 import { RecentComponent } from './components/recent/recent.component';
-import { Ng2ImgToolsModule } from 'ng2-img-tools';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { TagsComponent } from './components/tags/tags.component';
@@ -48,7 +47,6 @@ import { TagComponent } from './pages/tag/tag.component';
         FormsModule,
         HttpModule,
         RoutingModule,
-        Ng2ImgToolsModule,
         PaginationModule,
         NgxPaginationModule,
         ToastModule.forRoot(),

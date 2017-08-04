@@ -16,7 +16,7 @@
                                                       }"
                                      style="visibility: visible; animation-name: fadeInDown;">
                                     <div class="archive_imgcontainer">
-                                        <img [src]="post.thumbnail" [alt]="post.title.rendered">
+                                        <img [src]="getThumbnail(post, 'categories')" [alt]="post.title.rendered">
                                     </div>
                                     <div class="archive_caption">
                                         <h2><a [routerLink]="['',post.slug]">{{post.title.rendered}}</a></h2>

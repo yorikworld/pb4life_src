@@ -11,10 +11,10 @@
         <div id="mostPopular" class="tab-pane fade in active" role="tabpanel">
             <ul class="small_catg popular_catg wow fadeInDown">
                 <li *ngFor="let recPost of recommendedPosts;">
-                    <div class="media wow fadeInDown"><a class="media-left" [routerLink]="['post', recPost.slug]"><img
-                            src="{{recPost.thumbnail}}" alt="{{recPost.name}}"></a>
+                    <div class="media wow fadeInDown"><a class="media-left" [routerLink]="['/post', recPost.slug]"><img
+                            [src]="getThumbnail(recPost, 'thumbnail')" alt="{{recPost.name}}"></a>
                         <div class="media-body">
-                            <h4 class="media-heading"><a [routerLink]="['post', recPost.slug]">{{recPost.title.rendered}}</a>
+                            <h4 class="media-heading"><a [routerLink]="['/post', recPost.slug]">{{recPost.title.rendered}}</a>
                             </h4>
                             <p>{{recPost.excerpt.rendered}}</p>
                         </div>

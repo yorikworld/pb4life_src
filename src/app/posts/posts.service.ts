@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import {Post} from './post';
 import {environment} from "../../environments/environment";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {isUndefined} from "util";
+import {isNull, isUndefined} from "util";
 
 @Injectable()
 export class PostsService {
@@ -103,9 +103,18 @@ export class PostsService {
   // }
 
   setDefaultThumbnail(res) {
+    let obj = {};
+    // console.log('res', res);
     res.forEach(item => {
-      if (!item['thumbnail'])
-        item['thumbnail'] = this.DEPLOY_PATH + 'assets/images/NoImage.jpg';
+      if (!isNull(item['better_featured_image'])) {
+        obj = item['better_featured_image']['media_details']['sizes'];
+        obj['origin'] = this._host + 'wp-content/uploads/' + item['better_featured_image']['media_details']['file'];
+      }
+      else{
+        // console.log('is null', obj);
+        obj = {noImage: this.DEPLOY_PATH + 'assets/images/NoImage.jpg'};
+      }
+      item['thumbnail'] = obj;
     });
     return res;
   }
@@ -234,6 +243,17 @@ export class PostsService {
           )
           .catch(err => console.log(err));
     }
+  }
+
+  getThumbnail(post: Post, thumbnail: string): string {
+    if(post['thumbnail']['noImage'])
+      return post['thumbnail']['noImage'];
+    if(post['thumbnail'][thumbnail])
+      return post['thumbnail'][thumbnail]['source_url'];
+    if(post['thumbnail']['origin'])
+      return post['thumbnail']['origin'];
+    // post['thumbnail']['carousel']['source_url']?post['thumbnail']['carousel']['source_url']:post['thumbnail'].noImage
+    // return '';
   }
 
   goTo404(): void {

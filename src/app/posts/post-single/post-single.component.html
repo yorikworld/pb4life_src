@@ -19,7 +19,7 @@
                                     class="fa fa-clock-o"></i>{{date_gmt}}</span> <a href="#"><i
                                     class="fa fa-tags"></i>Technology</a>
                             </div>
-                            <img class="img-center" [src]="post.thumbnail" alt="{{post.name}}">
+                            <img class="img-center" [src]="getThumbnail(post, 'single')" alt="{{post.name}}">
                             <div [innerHTML]="post.content.rendered"></div>
                             <!--<ul>-->
                             <!--<li>Nunc sed aliquet nisi. Nullam ut magna</li>-->
@@ -65,7 +65,7 @@
                 <!--</div>-->
                 <app-social-share></app-social-share>
                 <!-- Put this div tag to the place, where the Comments block will be -->
-                <vkcomments></vkcomments>
+                <!--<vkcomments></vkcomments>-->
 
 
 

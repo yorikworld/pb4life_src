@@ -52,4 +52,8 @@ export class TagComponent implements OnInit {
       this.location.go(`tag/${this.tagSlug}/page/${$event.page}`);
   }
 
+  getThumbnail(post, thumbnail){
+    return this.postsService.getThumbnail(post, thumbnail);
+  }
+
 }
