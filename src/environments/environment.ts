@@ -6,6 +6,7 @@
 export const environment = {
   production: false,
   host: 'http://paintball.dev/',
+  uploads: 'http://paintball.dev/wp-content/uploads/',
   api: 'http://paintball.dev/wp-json/wp/v2/',
   DEPLOY_PATH : ''
 };

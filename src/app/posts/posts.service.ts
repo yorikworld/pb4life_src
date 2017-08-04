@@ -16,6 +16,7 @@ export class PostsService {
   private _wpBase: string;
   private _host: string;
   private _prod: boolean;
+  private _uploads: string;
   private DEPLOY_PATH: string;
   private recommendedPosts: Array<{}>;
   private categories: BehaviorSubject<Array<{}>>;
@@ -28,6 +29,7 @@ export class PostsService {
     this._wpBase = environment.api;
     this._host = environment.host;
     this._prod = environment.production;
+    this._uploads = environment.uploads;
     this.DEPLOY_PATH = environment.DEPLOY_PATH;
     this.recommendedPosts = [];
     this.categories = new BehaviorSubject([]);
@@ -108,11 +110,11 @@ export class PostsService {
     res.forEach(item => {
       if (!isNull(item['better_featured_image'])) {
         obj = item['better_featured_image']['media_details']['sizes'];
-        obj['origin'] = this._host + 'wp-content/uploads/' + item['better_featured_image']['media_details']['file'];
+        obj['origin'] = this._uploads + item['better_featured_image']['media_details']['file'];
       }
       else{
         // console.log('is null', obj);
-        obj = {noImage: this.DEPLOY_PATH + 'assets/images/NoImage.jpg'};
+        obj = {noImage: this.DEPLOY_PATH + '/assets/images/NoImage.jpg'};
       }
       item['thumbnail'] = obj;
     });
@@ -221,9 +223,9 @@ export class PostsService {
 
     if (this._prod) {
 
-      let promise = new Promise(function (resolve, reject) {
+      let promise = new Promise((resolve, reject) => {
         vkApi.Api.call('widgets.getComments',
-            {widget_api_id: '5900450', page_id: 'http://pb4life.in.ua/' + slug},
+            {widget_api_id: '5900450', page_id: this._host + slug},
             (obj) => {
               if (obj.response['count'])
                 resolve(obj.response['count']);

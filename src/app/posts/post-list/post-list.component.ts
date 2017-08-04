@@ -103,7 +103,7 @@ export class PostListComponent implements OnInit, OnDestroy {
           res['currentCatSlug'] = this.postsService.searchCategoryProperty('slug', 'id', catId);
           res.forEach((item) => {
             item['date_gmt'] = this.postsService.getNormDate(item.date_gmt);
-            this.postsService.getCommentsCount(item.slug, item.id, this.vkApi);
+//            this.postsService.getCommentsCount(item.slug, item.id, this.vkApi);
           });
           this.postsByCat.push(res);
         });
