@@ -17,7 +17,6 @@ export class PostsService {
   private _host: string;
   private _prod: boolean;
   private _uploads: string;
-  private DEPLOY_PATH: string;
   private recommendedPosts: Array<{}>;
   private categories: BehaviorSubject<Array<{}>>;
   private posts: BehaviorSubject<Post[]>;
@@ -29,7 +28,6 @@ export class PostsService {
     this._host = environment.host;
     this._prod = environment.production;
     this._uploads = environment.uploads;
-    this.DEPLOY_PATH = environment.DEPLOY_PATH;
     this.recommendedPosts = [];
     this.categories = new BehaviorSubject([]);
     this.categories$ = this.getAllCategories();
@@ -105,15 +103,13 @@ export class PostsService {
 
   setDefaultThumbnail(res) {
     let obj = {};
-    // console.log('res', res);
     res.forEach(item => {
       if (!isNull(item['better_featured_image'])) {
         obj = item['better_featured_image']['media_details']['sizes'];
         obj['origin'] = this._uploads + item['better_featured_image']['media_details']['file'];
       }
       else{
-        // console.log('is null', obj);
-        obj = {noImage: this.DEPLOY_PATH + '/assets/images/NoImage.jpg'};
+        obj = {noImage: this._uploads + 'NoImage.jpg'};
       }
       item['thumbnail'] = obj;
     });
