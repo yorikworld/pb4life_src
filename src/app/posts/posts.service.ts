@@ -25,7 +25,6 @@ export class PostsService {
   private tags: BehaviorSubject<Array<Object>>;
 
   constructor(private http: Http) {
-    console.log('!!!');
     this._wpBase = environment.api;
     this._host = environment.host;
     this._prod = environment.production;
@@ -254,8 +253,6 @@ export class PostsService {
       return post['thumbnail'][thumbnail]['source_url'];
     if(post['thumbnail']['origin'])
       return post['thumbnail']['origin'];
-    // post['thumbnail']['carousel']['source_url']?post['thumbnail']['carousel']['source_url']:post['thumbnail'].noImage
-    // return '';
   }
 
   goTo404(): void {

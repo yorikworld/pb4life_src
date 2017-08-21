@@ -34,7 +34,7 @@
                         </div>
                         <ul class="featured_nav wow fadeInDown">
                             <li *ngFor="let post of latestPosts">
-                                <img [src]="getThumbnail(post, 'medium_large')" alt="{{post.name}}">
+                                <img [src]="getThumbnail(post, 'latest') || ''" alt="{{post.name}}">
                                 <div class="title_caption"><a [routerLink]="post.slug">{{post.title.rendered}}</a></div>
                             </li>
                         </ul>
