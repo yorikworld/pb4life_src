@@ -21,14 +21,17 @@ export class PostSingleComponent implements OnInit, AfterViewInit, OnDestroy {
   date_gmt: string = '';
   public vkApi: any;
   public DEPLOY_PATH: string;
+  public _host: string;
   private currentCategory: string;
   private currentCategorySubscription: Subscription;
+  public slug: string;
 
   constructor(private postsService: PostsService, private activeRoute: ActivatedRoute,
               private router: Router,
               private location: Location, vkComponent: VkComponent) {
     // this.vkApi = vkComponent.init();
     this.DEPLOY_PATH = environment.DEPLOY_PATH;
+    this._host = environment.host;
   }
 
   ngAfterViewInit() {
@@ -57,8 +60,8 @@ export class PostSingleComponent implements OnInit, AfterViewInit, OnDestroy {
     //   console.log(this.currentCategory);
     // });
     this.activeRoute.params.forEach((params: Params) => {
-      let slug = params['slug'];
-      this.getPost(slug);
+      this.slug = params['slug'];
+      this.getPost(this.slug);
     });
   }
 
