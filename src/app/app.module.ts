@@ -23,6 +23,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { TagsComponent } from './components/tags/tags.component';
 import {PostsService} from 'app/posts/posts.service';
 import { TagComponent } from './pages/tag/tag.component';
+import {DisqusModule} from "ng2-awesome-disqus";
 
 @NgModule({
     declarations: [
@@ -49,6 +50,7 @@ import { TagComponent } from './pages/tag/tag.component';
         RoutingModule,
         PaginationModule,
         NgxPaginationModule,
+        DisqusModule,
         ToastModule.forRoot(),
         CarouselModule.forRoot()
     ],

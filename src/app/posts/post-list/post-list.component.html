@@ -67,7 +67,7 @@
                                             <span
                                                     class="meta_date">{{post.date_gmt}}</span> <span
                                                     class="meta_comment"><a [ngClass]="'vk_count_'+post.id"
-                                                                            [routerLink]="post.slug">Нет коментариев</a></span>
+                                                                            [routerLink]="post.slug + '#disqus_thread'">Нет коментариев</a></span>
                                                 <span
                                                         class="meta_more">
                                             <a [routerLink]="post.slug">Read More...</a></span></div>
@@ -89,7 +89,7 @@
                                                     <div class="comments_box"><span
                                                             class="meta_date">{{post.date_gmt}}</span>
                                                         <span class="meta_comment">
-                                                        <a [ngClass]="'vk_count_'+post.id" [routerLink]="post.slug">Нет коментариев</a></span>
+                                                        <a class="disqus-comment-count" data-disqus-identifier="kiev-express" [routerLink]="post.slug + '&' + '#disqus_thread'">Нет коментариев</a></span>
                                                     </div>
                                                 </div>
                                             </div>
