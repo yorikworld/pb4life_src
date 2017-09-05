@@ -23,7 +23,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { TagsComponent } from './components/tags/tags.component';
 import {PostsService} from 'app/posts/posts.service';
 import { TagComponent } from './pages/tag/tag.component';
-import {DisqusModule} from "ng2-awesome-disqus";
+import {DisqusModule} from "ngx-disqus";
 
 @NgModule({
     declarations: [
@@ -50,9 +50,9 @@ import {DisqusModule} from "ng2-awesome-disqus";
         RoutingModule,
         PaginationModule,
         NgxPaginationModule,
-        DisqusModule,
         ToastModule.forRoot(),
-        CarouselModule.forRoot()
+        CarouselModule.forRoot(),
+        DisqusModule.forRoot('pb4life')
     ],
     providers: [PostsService],
     bootstrap: [AppComponent]

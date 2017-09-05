@@ -61,6 +61,10 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.categories = res;
       this.getPostsByCategories();
     });
+
+    setTimeout(function () {
+      window['DISQUSWIDGETS'].getCount({reset: true});
+    }, 4000);
   }
 
   toSingle(currentCategorySlug) {
