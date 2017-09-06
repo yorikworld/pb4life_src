@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PostsService} from "../../posts/posts.service";
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  tags: Array<Object>;
+
+  constructor(private postsService: PostsService) { }
 
   ngOnInit() {
+    this.postsService.tags$.subscribe(res => {
+      this.tags = res;
+    });
   }
 
 }
