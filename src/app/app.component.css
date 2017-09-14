@@ -1,0 +1,11 @@
+.wrapper-align{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+.wrapper-footer{
+    margin-top: auto;
+    margin-bottom: 0;
+}
