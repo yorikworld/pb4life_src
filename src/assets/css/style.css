@@ -81,7 +81,7 @@ img:hover{opacity:0.75}
 .bold_line{bottom:0; display:block; height:10px; left:0; position:absolute; width:100%}
 .bold_line span{ display:block; height:100%; width:100%}
 .solid_line{background-color:#fff; bottom:5px; display:block; height:1px; left:0; position:absolute; width:100%; z-index:0}
-.title_text{background-color:#f6f6f6; display:inline-block; padding:0 10px; position:relative; top:5px; z-index:1}
+.title_text{background-color:#f6f6f6; display:inline-block; padding:0 10px; position:relative; top:5px; z-index:1; cursor:pointer;}
 .catg1_nav{}
 .catg1_nav li{float:left; display:inline; width:100%; margin-bottom:30px}
 .catg1_nav li a{}
